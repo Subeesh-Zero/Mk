@@ -259,6 +259,51 @@
   }
   .progress-track:hover .progress-knob { transform: translateY(-50%) scale(1); }
 
+  /* =========================================================
+     FULLSCREEN FIX — custom video player fills entire screen
+     Video is centered with object-fit: contain and the internal
+     overlay controls remain pinned beautifully to the bottom.
+  ========================================================= */
+  .custom-player:fullscreen,
+  .custom-player:-webkit-full-screen {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    background: #000 !important;
+    box-shadow: none !important;
+  }
+
+  .custom-player:fullscreen .aspect-169,
+  .custom-player:-webkit-full-screen .aspect-169 {
+    aspect-ratio: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+  }
+
+  .custom-player:fullscreen video,
+  .custom-player:-webkit-full-screen video {
+    object-fit: contain !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Keep the overlay controls pinned to the bottom inside fullscreen */
+  .custom-player:fullscreen .player-overlay,
+  .custom-player:-webkit-full-screen .player-overlay {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Larger, more comfortable controls while in fullscreen */
+  .custom-player:fullscreen .progress-track,
+  .custom-player:-webkit-full-screen .progress-track {
+    height: 4px;
+  }
+
   /* Subtle white-to-gray text gradient for premium headings */
   .silver-text {
     background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
@@ -313,6 +358,9 @@
 </head>
 
 <body class="antialiased no-scroll">
+
+<!-- ============================= MASTER WRAPPER (locks page to viewport width — prevents any layout shift) ============================= -->
+<div class="relative w-full max-w-full overflow-x-hidden">
 
 <!-- ============================= UNIFIED GLOBAL BACKGROUND ============================= -->
 <div class="site-bg" aria-hidden="true">
@@ -1398,6 +1446,9 @@
     </a>
   </div>
 </footer>
+
+</div>
+<!-- ============================= END MASTER WRAPPER ============================= -->
 
 <script>
 (function () {
