@@ -61,16 +61,14 @@
 
   /* =========================================================
      SCROLLBAR — FULLY HIDDEN (fixes mobile off-center layout)
-     Native, app-like scroll experience with zero viewport shift.
   ========================================================= */
   html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--nav-h);
     background-color: #09090b;
-    scrollbar-width: none;        /* Firefox */
-    -ms-overflow-style: none;     /* IE / legacy Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-
   html::-webkit-scrollbar { display: none; }
 
   body {
@@ -80,19 +78,14 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     position: relative;
-    scrollbar-width: none;        /* Firefox */
-    -ms-overflow-style: none;     /* IE / legacy Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-
   body::-webkit-scrollbar { display: none; }
-
-  /* Global fallback — hide every scrollbar element on the page */
   ::-webkit-scrollbar { display: none; width: 0; height: 0; }
-
   body.no-scroll { overflow: hidden; }
 
   .font-display { font-family: 'Space Grotesk', sans-serif; }
-
   ::selection { background: rgba(255,255,255,.85); color: #000; }
 
   a:focus-visible,
@@ -113,7 +106,7 @@
   .skip-link:focus { top: 1rem; }
 
   /* =========================================================
-     UNIFIED FIXED BACKGROUND — Monochrome cinematic
+     UNIFIED FIXED BACKGROUND
   ========================================================= */
   .site-bg {
     position: fixed;
@@ -123,8 +116,6 @@
     overflow: hidden;
     background-color: #09090b;
   }
-
-  /* Subtle white grid */
   .site-bg::before {
     content: '';
     position: absolute;
@@ -135,8 +126,6 @@
     background-size: 64px 64px;
     background-position: 0 0;
   }
-
-  /* Vignette — soft darkening at edges */
   .site-bg::after {
     content: '';
     position: absolute;
@@ -144,8 +133,6 @@
     background: radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(9,9,11,0.75) 100%);
     pointer-events: none;
   }
-
-  /* Soft monochrome atmospheric glows */
   .site-bg .glow {
     position: absolute;
     border-radius: 50%;
@@ -154,22 +141,10 @@
     will-change: transform;
     background: radial-gradient(circle, rgba(255,255,255,0.6), transparent 70%);
   }
-  .site-bg .glow-1 {
-    width: 620px; height: 620px;
-    top: -200px; left: -180px;
-  }
-  .site-bg .glow-2 {
-    width: 720px; height: 720px;
-    top: 30%; right: -260px;
-    opacity: .14;
-  }
-  .site-bg .glow-3 {
-    width: 560px; height: 560px;
-    bottom: -220px; left: 30%;
-    opacity: .12;
-  }
+  .site-bg .glow-1 { width: 620px; height: 620px; top: -200px; left: -180px; }
+  .site-bg .glow-2 { width: 720px; height: 720px; top: 30%; right: -260px; opacity: .14; }
+  .site-bg .glow-3 { width: 560px; height: 560px; bottom: -220px; left: 30%; opacity: .12; }
 
-  /* Responsive grid density */
   @media (max-width: 900px) {
     .site-bg::before { background-size: 52px 52px; }
     .site-bg .glow { filter: blur(120px); }
@@ -205,18 +180,14 @@
       0 0 60px -20px rgba(255,255,255,0.10);
   }
 
-  /* Reveal */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
-  /* Skill bars */
   .skill-fill { width: 0%; transition: width 1.4s cubic-bezier(.16,1,.3,1); }
 
-  /* Video aspect */
   .aspect-169 { aspect-ratio: 16 / 9; }
   .aspect-916 { aspect-ratio: 9 / 16; }
 
-  /* Nav link underline */
   .nav-link { position: relative; }
   .nav-link::after {
     content: '';
@@ -229,43 +200,13 @@
   .nav-link:hover::after, .nav-link.active::after { width: 100%; }
   .nav-link.active { color: #ffffff; }
 
-  /* Custom main player */
-  .player-wrap { position: relative; }
-  .player-wrap .player-overlay { opacity: 1; transition: opacity .35s ease; }
-  .player-wrap .player-overlay.hide { opacity: 0; }
-
-  /* Progress bar (main player) — pure white/gray */
-  .progress-track {
-    position: relative;
-    height: 3px;
-    background: rgba(255,255,255,.20);
-    border-radius: 999px;
-    cursor: pointer;
-    transition: height .2s ease;
-  }
-  .progress-track:hover { height: 5px; }
-  .progress-fill {
-    position: absolute; left: 0; top: 0; bottom: 0; width: 0%;
-    background: #ffffff;
-    border-radius: 999px;
-    transition: width .08s linear;
-  }
-  .progress-knob {
-    position: absolute; top: 50%; right: -6px; width: 11px; height: 11px; border-radius: 50%;
-    background: #ffffff;
-    transform: translateY(-50%) scale(0);
-    transition: transform .2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,.7);
-  }
-  .progress-track:hover .progress-knob { transform: translateY(-50%) scale(1); }
-
   /* =========================================================
-     FULLSCREEN FIX — custom video player fills entire screen
-     Video is centered with object-fit: contain and the internal
-     overlay controls remain pinned beautifully to the bottom.
+     FULLSCREEN — main player + shorts fill screen perfectly
   ========================================================= */
   .custom-player:fullscreen,
-  .custom-player:-webkit-full-screen {
+  .custom-player:-webkit-full-screen,
+  .short-card:fullscreen,
+  .short-card:-webkit-full-screen {
     width: 100vw !important;
     height: 100vh !important;
     max-width: 100vw !important;
@@ -277,7 +218,9 @@
   }
 
   .custom-player:fullscreen .aspect-169,
-  .custom-player:-webkit-full-screen .aspect-169 {
+  .custom-player:-webkit-full-screen .aspect-169,
+  .short-card:fullscreen .aspect-916,
+  .short-card:-webkit-full-screen .aspect-916 {
     aspect-ratio: auto !important;
     width: 100% !important;
     height: 100% !important;
@@ -285,26 +228,27 @@
   }
 
   .custom-player:fullscreen video,
-  .custom-player:-webkit-full-screen video {
+  .custom-player:-webkit-full-screen video,
+  .short-card:fullscreen video,
+  .short-card:-webkit-full-screen video {
     object-fit: contain !important;
     width: 100% !important;
     height: 100% !important;
   }
 
-  /* Keep the overlay controls pinned to the bottom inside fullscreen */
-  .custom-player:fullscreen .player-overlay,
-  .custom-player:-webkit-full-screen .player-overlay {
-    width: 100% !important;
-    height: 100% !important;
+  /* =========================================================
+     PLAYER PROGRESS BAR — visible ONLY in fullscreen
+  ========================================================= */
+  .player-progress {
+    display: none;
+  }
+  .custom-player:fullscreen .player-progress,
+  .custom-player:-webkit-full-screen .player-progress,
+  .short-card:fullscreen .player-progress,
+  .short-card:-webkit-full-screen .player-progress {
+    display: block;
   }
 
-  /* Larger, more comfortable controls while in fullscreen */
-  .custom-player:fullscreen .progress-track,
-  .custom-player:-webkit-full-screen .progress-track {
-    height: 4px;
-  }
-
-  /* Subtle white-to-gray text gradient for premium headings */
   .silver-text {
     background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
     -webkit-background-clip: text;
@@ -312,7 +256,6 @@
     color: transparent;
   }
 
-  /* Preloader */
   #preloader {
     position: fixed; inset: 0; z-index: 300;
     background: radial-gradient(ellipse at top, #0e0e12 0%, #09090b 60%);
@@ -321,27 +264,27 @@
   }
   #preloader.done { opacity: 0; visibility: hidden; }
 
-  /* =========================================================
-     SMART HEADER — MOBILE ONLY auto hide / show on scroll
-  ========================================================= */
   #siteHeader {
-    transition: transform .4s cubic-bezier(.16,1,.3,1);
+    transition: transform .4s cubic-bezier(.16,1,.3,1), background-color .3s ease, border-color .3s ease;
     will-change: transform;
   }
   @media (max-width: 767.98px) {
-    #siteHeader.header-hidden {
-      transform: translateY(-100%);
-    }
+    #siteHeader.header-hidden { transform: translateY(-100%); }
   }
   @media (min-width: 768px) {
-    #siteHeader.header-hidden {
-      transform: translateY(0) !important;
-    }
+    #siteHeader.header-hidden { transform: translateY(0) !important; }
   }
 
   /* =========================================================
-     MOBILE MENU — pure deep dark frosted glass
+     SEAMLESS MOBILE MENU — merge header + dropdown into one panel
   ========================================================= */
+  #siteHeader.menu-open-bg {
+    background-color: rgba(9, 9, 11, 0.95) !important;
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    border-bottom-color: transparent !important;
+  }
+
   #mobileMenu > div {
     background-color: rgba(9, 9, 11, 0.95) !important;
     box-shadow: 0 12px 40px -20px rgba(0,0,0,0.85) !important;
@@ -359,17 +302,17 @@
 
 <body class="antialiased no-scroll">
 
-<!-- ============================= MASTER WRAPPER (locks page to viewport width — prevents any layout shift) ============================= -->
+<!-- ============================= MASTER WRAPPER ============================= -->
 <div class="relative w-full max-w-full overflow-x-hidden">
 
-<!-- ============================= UNIFIED GLOBAL BACKGROUND ============================= -->
+<!-- UNIFIED GLOBAL BACKGROUND -->
 <div class="site-bg" aria-hidden="true">
   <div class="glow glow-1"></div>
   <div class="glow glow-2"></div>
   <div class="glow glow-3"></div>
 </div>
 
-<!-- ============================= PRELOADER ============================= -->
+<!-- PRELOADER -->
 <div id="preloader" aria-hidden="true">
   <div class="text-center px-6">
     <div class="relative inline-flex items-center justify-center">
@@ -388,7 +331,7 @@
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- ============================= HEADER (MOBILE-ONLY SMART AUTO-HIDE) ============================= -->
+<!-- ============================= HEADER ============================= -->
 <header id="siteHeader" class="sticky top-0 z-50 bg-transparent md:bg-black/60 md:backdrop-blur-xl border-b border-transparent md:border-white/[0.06]">
   <div class="relative max-w-[110rem] mx-auto px-4 sm:px-8 lg:px-12 h-[72px] flex items-center justify-between">
 
@@ -410,7 +353,6 @@
       </a>
     </div>
 
-    <!-- Mobile hamburger — flex aligned far right, scaled to match logo visual weight -->
     <button id="menuToggle" type="button"
             class="md:hidden flex items-center justify-center w-12 h-12 -mr-2 text-white/80 hover:text-white transition-colors"
             aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
@@ -420,7 +362,7 @@
   </div>
 </header>
 
-<!-- ============================= MOBILE MENU (PURE DEEP FROSTED GLASS) ============================= -->
+<!-- ============================= MOBILE MENU ============================= -->
 <nav id="mobileMenu" class="md:hidden hidden absolute inset-x-0 top-[72px] z-[100] origin-top"
      aria-label="Mobile navigation">
   <div class="relative bg-[#09090b]/95 backdrop-blur-xl border-b border-white/10 animate-menuDrop">
@@ -504,7 +446,6 @@
           </a>
         </div>
 
-        <!-- Micro stats strip -->
         <div class="mt-8 sm:mt-9 flex flex-wrap justify-center lg:justify-start items-center gap-x-6 sm:gap-x-8 gap-y-4">
           <div class="text-center lg:text-left">
             <div class="font-display font-extrabold text-2xl sm:text-3xl text-white">
@@ -529,75 +470,45 @@
         </div>
       </div>
 
-      <!-- RIGHT: Custom video player -->
+      <!-- RIGHT: Minimal Cinematic Showreel -->
       <div class="lg:col-span-6 w-full">
         <div class="relative w-full">
           <div class="absolute -inset-4 rounded-[2rem] bg-white/[0.04] blur-2xl opacity-70 pointer-events-none" aria-hidden="true"></div>
 
           <div class="custom-player player-wrap relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-black shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95)]">
-
             <div class="relative aspect-169 bg-black">
               <video
                 id="mainShowreel"
                 class="absolute inset-0 w-full h-full object-cover bg-black"
-                playsinline
+                autoplay loop muted playsinline
                 preload="metadata"
                 poster="https://lh3.googleusercontent.com/d/1wExSxmKxSknv9gvz4NYHXi53Z-3wwW-P=w1920">
-                <source src="videos/showreel.mp4" type="video/mp4">
+                <source src="video/Main.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
 
-              <div class="player-overlay absolute inset-0 z-10">
+              <!-- Bottom overlay: progress (fullscreen only) + bare icon controls -->
+              <div class="absolute inset-x-0 bottom-0 z-20 px-3 sm:px-4 pb-3 sm:pb-4 pt-16 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none">
 
-                <div class="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 flex items-center gap-2">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-bold uppercase tracking-widest text-white">
-                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-                    Showreel 2024
-                  </span>
-                </div>
-
-                <button type="button" data-big-play aria-label="Play showreel"
-                  class="absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300">
-                  <span class="group flex items-center justify-center w-16 h-16 sm:w-[72px] sm:h-[72px] rounded-full
-                    bg-white/10 backdrop-blur-md border border-white/30
-                    shadow-[0_8px_32px_rgba(0,0,0,0.6)]
-                    hover:bg-white/20 hover:scale-105 transition-all duration-300">
-                    <svg class="w-6 h-6 sm:w-7 sm:h-7 ml-0.5 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                  </span>
-                </button>
-
-                <div class="absolute inset-x-0 bottom-0 z-20 pt-20 pb-3 sm:pb-4 px-3 sm:px-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
-
-                  <div class="progress-track mb-3" data-progress>
-                    <div class="progress-fill" data-progress-fill>
-                      <span class="progress-knob"></span>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center gap-1 sm:gap-1.5">
-                    <button type="button" data-play aria-label="Play / Pause"
-                      class="w-9 h-9 flex items-center justify-center rounded-full text-white/85 hover:text-white hover:bg-white/10 transition-colors">
-                      <svg data-play-icon class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                      <svg data-pause-icon class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-                    </button>
-
-                    <button type="button" data-volume aria-label="Mute / Unmute"
-                      class="w-9 h-9 flex items-center justify-center rounded-full text-white/85 hover:text-white hover:bg-white/10 transition-colors">
-                      <svg data-vol-on class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-                      <svg data-vol-off class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
-                    </button>
-
-                    <span data-time class="ml-1 text-[11px] sm:text-xs font-medium text-white/70 tabular-nums select-none">0:00 / 0:00</span>
-
-                    <div class="flex-1"></div>
-
-                    <button type="button" data-fullscreen aria-label="Fullscreen"
-                      class="w-9 h-9 flex items-center justify-center rounded-full text-white/85 hover:text-white hover:bg-white/10 transition-colors">
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-                    </button>
+                <!-- Progress bar — visible ONLY in fullscreen -->
+                <div class="player-progress mb-3 pointer-events-auto" data-progress-bar>
+                  <div class="relative h-1 rounded-full bg-white/25 cursor-pointer">
+                    <div class="absolute inset-y-0 left-0 rounded-full bg-white" data-progress-fill style="width:0%"></div>
                   </div>
                 </div>
 
+                <div class="flex items-center justify-between">
+                  <button type="button" data-fullscreen aria-label="Fullscreen"
+                    class="pointer-events-auto w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-95">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                  </button>
+
+                  <button type="button" data-mute-toggle aria-label="Toggle sound"
+                    class="pointer-events-auto w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-95">
+                    <svg class="icon-muted w-5 h-5 sm:w-6 sm:h-6 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+                    <svg class="icon-unmuted w-5 h-5 sm:w-6 sm:h-6 hidden drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -815,7 +726,7 @@
       </div>
     </div>
 
-    <!-- ===== Shorts grid ===== -->
+    <!-- ===== Shorts grid — RAW REELS UI ===== -->
     <div>
       <div class="flex flex-wrap items-center gap-3 mb-5 sm:mb-6 reveal">
         <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/15 text-white text-xs font-bold uppercase tracking-widest">
@@ -838,24 +749,29 @@
               class="absolute inset-0 w-full h-full object-cover"
               autoplay loop muted playsinline preload="metadata"
               poster="https://lh3.googleusercontent.com/d/1GLpQhme_Iovb3h95IBR2ZnNFV50F1wV_=w800">
-              <source src="videos/short-1.mp4" type="video/mp4">
+              <source src="video/S1.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
 
-            <button type="button" data-mute-toggle aria-label="Toggle sound"
-              class="absolute bottom-3 right-3 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-colors">
-              <svg class="icon-muted w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
-              <svg class="icon-unmuted w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-            </button>
+            <div class="absolute inset-x-0 bottom-0 z-20 px-2 pb-2 pt-12 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none">
+              <div class="player-progress mb-2 pointer-events-auto" data-progress-bar>
+                <div class="relative h-1 rounded-full bg-white/25 cursor-pointer">
+                  <div class="absolute inset-y-0 left-0 rounded-full bg-white" data-progress-fill style="width:0%"></div>
+                </div>
+              </div>
 
-            <div class="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 bg-black/70 backdrop-blur-md border border-white/15 text-white font-bold text-[10px] px-2.5 py-1 rounded-full">
-              <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-              9:16
+              <div class="flex items-center justify-between">
+                <button type="button" data-fullscreen aria-label="Fullscreen"
+                  class="pointer-events-auto w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-95">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                </button>
+
+                <button type="button" data-mute-toggle aria-label="Toggle sound"
+                  class="pointer-events-auto w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-95">
+                  <svg class="icon-muted w-4 h-4 sm:w-5 sm:h-5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+                  <svg class="icon-unmuted w-4 h-4 sm:w-5 sm:h-5 hidden drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="p-3.5 sm:p-4">
-            <h4 class="font-bold text-sm text-white mb-0.5">Short-Form Edit 01</h4>
-            <p class="text-[11px] uppercase tracking-widest text-zinc-500 font-bold">Vertical Video</p>
           </div>
         </div>
 
@@ -866,22 +782,29 @@
               class="absolute inset-0 w-full h-full object-cover"
               autoplay loop muted playsinline preload="metadata"
               poster="https://lh3.googleusercontent.com/d/1oYzprFBlMzSbKt3sMDtk6t935XmdAmdt=w800">
-              <source src="videos/short-2.mp4" type="video/mp4">
+              <source src="video/S2.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
-            <button type="button" data-mute-toggle aria-label="Toggle sound"
-              class="absolute bottom-3 right-3 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-colors">
-              <svg class="icon-muted w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
-              <svg class="icon-unmuted w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-            </button>
-            <div class="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 bg-black/70 backdrop-blur-md border border-white/15 text-white font-bold text-[10px] px-2.5 py-1 rounded-full">
-              <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-              9:16
+
+            <div class="absolute inset-x-0 bottom-0 z-20 px-2 pb-2 pt-12 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none">
+              <div class="player-progress mb-2 pointer-events-auto" data-progress-bar>
+                <div class="relative h-1 rounded-full bg-white/25 cursor-pointer">
+                  <div class="absolute inset-y-0 left-0 rounded-full bg-white" data-progress-fill style="width:0%"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <button type="button" data-fullscreen aria-label="Fullscreen"
+                  class="pointer-events-auto w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-95">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                </button>
+
+                <button type="button" data-mute-toggle aria-label="Toggle sound"
+                  class="pointer-events-auto w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-95">
+                  <svg class="icon-muted w-4 h-4 sm:w-5 sm:h-5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+                  <svg class="icon-unmuted w-4 h-4 sm:w-5 sm:h-5 hidden drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="p-3.5 sm:p-4">
-            <h4 class="font-bold text-sm text-white mb-0.5">Short-Form Edit 02</h4>
-            <p class="text-[11px] uppercase tracking-widest text-zinc-500 font-bold">Vertical Video</p>
           </div>
         </div>
 
@@ -892,22 +815,29 @@
               class="absolute inset-0 w-full h-full object-cover"
               autoplay loop muted playsinline preload="metadata"
               poster="https://lh3.googleusercontent.com/d/1S8973BeV8zJ8uRBcKjYAyhLHIJgrTZQz=w800">
-              <source src="videos/short-3.mp4" type="video/mp4">
+              <source src="video/S3.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
-            <button type="button" data-mute-toggle aria-label="Toggle sound"
-              class="absolute bottom-3 right-3 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-colors">
-              <svg class="icon-muted w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
-              <svg class="icon-unmuted w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-            </button>
-            <div class="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 bg-black/70 backdrop-blur-md border border-white/15 text-white font-bold text-[10px] px-2.5 py-1 rounded-full">
-              <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-              9:16
+
+            <div class="absolute inset-x-0 bottom-0 z-20 px-2 pb-2 pt-12 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none">
+              <div class="player-progress mb-2 pointer-events-auto" data-progress-bar>
+                <div class="relative h-1 rounded-full bg-white/25 cursor-pointer">
+                  <div class="absolute inset-y-0 left-0 rounded-full bg-white" data-progress-fill style="width:0%"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <button type="button" data-fullscreen aria-label="Fullscreen"
+                  class="pointer-events-auto w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-95">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                </button>
+
+                <button type="button" data-mute-toggle aria-label="Toggle sound"
+                  class="pointer-events-auto w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-95">
+                  <svg class="icon-muted w-4 h-4 sm:w-5 sm:h-5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+                  <svg class="icon-unmuted w-4 h-4 sm:w-5 sm:h-5 hidden drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="p-3.5 sm:p-4">
-            <h4 class="font-bold text-sm text-white mb-0.5">Short-Form Edit 03</h4>
-            <p class="text-[11px] uppercase tracking-widest text-zinc-500 font-bold">Vertical Video</p>
           </div>
         </div>
 
@@ -918,22 +848,29 @@
               class="absolute inset-0 w-full h-full object-cover"
               autoplay loop muted playsinline preload="metadata"
               poster="https://lh3.googleusercontent.com/d/1ZX5Fxc415jJ2yizESSdtfFs2ttykkuOv=w800">
-              <source src="videos/short-4.mp4" type="video/mp4">
+              <source src="video/S4.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
-            <button type="button" data-mute-toggle aria-label="Toggle sound"
-              class="absolute bottom-3 right-3 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-colors">
-              <svg class="icon-muted w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
-              <svg class="icon-unmuted w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-            </button>
-            <div class="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 bg-black/70 backdrop-blur-md border border-white/15 text-white font-bold text-[10px] px-2.5 py-1 rounded-full">
-              <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-              9:16
+
+            <div class="absolute inset-x-0 bottom-0 z-20 px-2 pb-2 pt-12 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none">
+              <div class="player-progress mb-2 pointer-events-auto" data-progress-bar>
+                <div class="relative h-1 rounded-full bg-white/25 cursor-pointer">
+                  <div class="absolute inset-y-0 left-0 rounded-full bg-white" data-progress-fill style="width:0%"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <button type="button" data-fullscreen aria-label="Fullscreen"
+                  class="pointer-events-auto w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-95">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                </button>
+
+                <button type="button" data-mute-toggle aria-label="Toggle sound"
+                  class="pointer-events-auto w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-white transition-transform hover:scale-110 active:scale-95">
+                  <svg class="icon-muted w-4 h-4 sm:w-5 sm:h-5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+                  <svg class="icon-unmuted w-4 h-4 sm:w-5 sm:h-5 hidden drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="p-3.5 sm:p-4">
-            <h4 class="font-bold text-sm text-white mb-0.5">Short-Form Edit 04</h4>
-            <p class="text-[11px] uppercase tracking-widest text-zinc-500 font-bold">Vertical Video</p>
           </div>
         </div>
 
@@ -1458,9 +1395,6 @@
 
   /* =========================================================
      NUMBER COUNTER — cinematic raw-number roll
-     Rapidly counts through the RAW large numbers (0 → 10,000,000)
-     with thousand-separators visible on screen, then SNAPS to the
-     formatted display text ("10M+", "100+", "274K", "3 Yrs", ...).
   ========================================================= */
   function animateCounter(el) {
     var raw = parseFloat(el.getAttribute('data-raw'));
@@ -1472,27 +1406,20 @@
     }
 
     el.textContent = '0';
-
-    // Fast but clearly visible roll
-    var duration = 2000; // 2 seconds
+    var duration = 2000;
     var startTime = null;
 
     function step(now) {
       if (startTime === null) startTime = now;
       var elapsed = now - startTime;
       var progress = Math.min(elapsed / duration, 1);
-
-      // Ease-out cubic — explosive at the start, settles smoothly
       var eased = 1 - Math.pow(1 - progress, 3);
       var current = Math.floor(raw * eased);
-
-      // Show raw rolling number with thousand separators
       el.textContent = current.toLocaleString('en-US');
 
       if (progress < 1) {
         requestAnimationFrame(step);
       } else {
-        // Snap to final formatted value the instant the roll completes
         el.textContent = formatted;
       }
     }
@@ -1501,17 +1428,12 @@
   }
 
   var counterEls = document.querySelectorAll('.counter');
-
-  // Initial state: show 0 so nothing jumps before the animation begins
-  counterEls.forEach(function (el) {
-    el.textContent = '0';
-  });
+  counterEls.forEach(function (el) { el.textContent = '0'; });
 
   function initCounters() {
     if (prefersReduced) {
       counterEls.forEach(function (el) {
-        var formatted = el.getAttribute('data-format') || '0';
-        el.textContent = formatted;
+        el.textContent = el.getAttribute('data-format') || '0';
       });
       return;
     }
@@ -1529,14 +1451,13 @@
       counterEls.forEach(function (el) { counterObserver.observe(el); });
     } else {
       counterEls.forEach(function (el) {
-        var formatted = el.getAttribute('data-format') || '0';
-        el.textContent = formatted;
+        el.textContent = el.getAttribute('data-format') || '0';
       });
     }
   }
 
   /* =========================================================
-     PRELOADER — must fully fade out before counters start
+     PRELOADER
   ========================================================= */
   var preloader = document.getElementById('preloader');
   var preloadBar = document.getElementById('preloadBar');
@@ -1563,8 +1484,6 @@
       if (preloader) preloader.classList.add('done');
       body.classList.remove('no-scroll');
 
-      // Wait for the preloader's fade-out (800ms) so the user actually sees
-      // the counters roll on screen.
       setTimeout(function () {
         startCountersOnce();
       }, 850);
@@ -1579,15 +1498,11 @@
     finishLoad();
   } else {
     window.addEventListener('load', finishLoad);
-    // Safety net: never let the preloader block the site forever
     setTimeout(finishLoad, 5000);
   }
 
   /* =========================================================
      SMART HEADER — MOBILE-ONLY auto hide/show on scroll
-     • Desktop (>= 768px): header always sticky & visible
-     • Mobile  (< 768px): hidden once scrolled past 150px,
-       shown again ONLY when returning near the top (<= 150px)
   ========================================================= */
   var MOBILE_BREAKPOINT = 768;
   var HEADER_HIDE_THRESHOLD = 150;
@@ -1642,7 +1557,9 @@
     }, 120);
   }, { passive: true });
 
-  /* Mobile menu */
+  /* =========================================================
+     MOBILE MENU — seamless merge with header background
+  ========================================================= */
   var menuToggle = document.getElementById('menuToggle');
   var mobileMenu = document.getElementById('mobileMenu');
   var iconOpen = document.getElementById('menuIconOpen');
@@ -1654,6 +1571,7 @@
     if (iconOpen) iconOpen.classList.remove('hidden');
     if (iconClose) iconClose.classList.add('hidden');
     if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+    if (siteHeader) siteHeader.classList.remove('menu-open-bg');
   }
 
   if (menuToggle && mobileMenu) {
@@ -1667,7 +1585,10 @@
         if (iconOpen) iconOpen.classList.add('hidden');
         if (iconClose) iconClose.classList.remove('hidden');
         menuToggle.setAttribute('aria-expanded', 'true');
-        if (siteHeader) siteHeader.classList.remove('header-hidden');
+        if (siteHeader) {
+          siteHeader.classList.remove('header-hidden');
+          siteHeader.classList.add('menu-open-bg');
+        }
       }
     });
 
@@ -1740,142 +1661,110 @@
     sections.forEach(function (s) { navObserver.observe(s); });
   }
 
-  /* Custom video player */
-  function initCustomPlayer(root) {
-    if (!root) return;
-    var video = root.querySelector('video');
+  /* =========================================================
+     VIDEO CONTROLS — Independent Mute + Fullscreen + Progress
+     Applies to the main showreel AND each short card.
+  ========================================================= */
+  function requestFs(el) {
+    var fn = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (fn) fn.call(el);
+  }
+
+  function exitFs() {
+    var fn = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+    if (fn) fn.call(document);
+  }
+
+  function initVideoControls(wrapper) {
+    if (!wrapper) return;
+    var video = wrapper.querySelector('video');
     if (!video) return;
 
-    var overlay    = root.querySelector('.player-overlay');
-    var bigPlay    = root.querySelector('[data-big-play]');
-    var playBtn    = root.querySelector('[data-play]');
-    var playIcon   = root.querySelector('[data-play-icon]');
-    var pauseIcon  = root.querySelector('[data-pause-icon]');
-    var progressEl = root.querySelector('[data-progress]');
-    var fillEl     = root.querySelector('[data-progress-fill]');
-    var timeEl     = root.querySelector('[data-time]');
-    var volBtn     = root.querySelector('[data-volume]');
-    var volOn      = root.querySelector('[data-vol-on]');
-    var volOff     = root.querySelector('[data-vol-off]');
-    var fsBtn      = root.querySelector('[data-fullscreen]');
-    var idleTimer;
+    var muteBtn     = wrapper.querySelector('[data-mute-toggle]');
+    var fsBtn       = wrapper.querySelector('[data-fullscreen]');
+    var progressBar = wrapper.querySelector('[data-progress-bar]');
+    var progressFill = wrapper.querySelector('[data-progress-fill]');
 
-    function fmt(s) {
-      if (!isFinite(s)) return '0:00';
-      var m = Math.floor(s / 60);
-      var sec = Math.floor(s % 60);
-      return m + ':' + String(sec).padStart(2, '0');
+    // Default state: muted + autoplay
+    video.muted = true;
+    video.setAttribute('muted', '');
+    var playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(function () { /* autoplay blocked — silent fallback */ });
     }
 
-    function updateTime() {
-      var cur = video.currentTime || 0;
-      var dur = video.duration || 0;
-      if (timeEl) timeEl.textContent = fmt(cur) + ' / ' + fmt(dur);
-      if (fillEl && dur > 0) fillEl.style.width = ((cur / dur) * 100) + '%';
-    }
-
-    function togglePlay() {
-      if (video.paused) {
-        video.play().catch(function(){});
-      } else {
-        video.pause();
-      }
-    }
-
-    video.addEventListener('play', function () {
-      if (bigPlay) bigPlay.classList.add('opacity-0', 'pointer-events-none');
-      if (playIcon) playIcon.classList.add('hidden');
-      if (pauseIcon) pauseIcon.classList.remove('hidden');
-      scheduleHide();
-    });
-    video.addEventListener('pause', function () {
-      if (bigPlay) bigPlay.classList.remove('opacity-0', 'pointer-events-none');
-      if (playIcon) playIcon.classList.remove('hidden');
-      if (pauseIcon) pauseIcon.classList.add('hidden');
-      if (overlay) overlay.classList.remove('hide');
-    });
-    video.addEventListener('timeupdate', updateTime);
-    video.addEventListener('loadedmetadata', updateTime);
-    video.addEventListener('ended', function () {
-      if (bigPlay) bigPlay.classList.remove('opacity-0', 'pointer-events-none');
-    });
-
-    if (bigPlay) bigPlay.addEventListener('click', togglePlay);
-    if (playBtn) playBtn.addEventListener('click', togglePlay);
-    video.addEventListener('click', function () { togglePlay(); });
-
-    if (progressEl) {
-      progressEl.addEventListener('click', function (e) {
-        var rect = progressEl.getBoundingClientRect();
-        var pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        if (isFinite(video.duration)) video.currentTime = pct * video.duration;
-      });
-    }
-
-    if (volBtn) {
-      volBtn.addEventListener('click', function () {
+    if (muteBtn) {
+      muteBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
         video.muted = !video.muted;
-        if (volOn) volOn.classList.toggle('hidden', video.muted);
-        if (volOff) volOff.classList.toggle('hidden', !video.muted);
+        var iMuted = muteBtn.querySelector('.icon-muted');
+        var iUnmuted = muteBtn.querySelector('.icon-unmuted');
+        if (iMuted) iMuted.classList.toggle('hidden', !video.muted);
+        if (iUnmuted) iUnmuted.classList.toggle('hidden', video.muted);
       });
     }
 
     if (fsBtn) {
-      fsBtn.addEventListener('click', function () {
-        var target = root;
-        if (!document.fullscreenElement) {
-          (target.requestFullscreen || target.webkitRequestFullscreen || function(){}).call(target);
+      fsBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var isFs = document.fullscreenElement ||
+                   document.webkitFullscreenElement ||
+                   document.msFullscreenElement;
+        if (!isFs) {
+          requestFs(wrapper);
         } else {
-          (document.exitFullscreen || document.webkitExitFullscreen || function(){}).call(document);
+          exitFs();
         }
       });
     }
 
-    function scheduleHide() {
-      if (!overlay) return;
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(function () {
-        if (!video.paused) overlay.classList.add('hide');
-      }, 2600);
+    // Progress bar update (visible only in fullscreen via CSS)
+    function updateProgress() {
+      if (!progressFill) return;
+      var dur = video.duration || 0;
+      if (dur > 0) {
+        progressFill.style.width = ((video.currentTime / dur) * 100) + '%';
+      }
     }
+    video.addEventListener('timeupdate', updateProgress);
+    video.addEventListener('loadedmetadata', updateProgress);
+    video.addEventListener('seeked', updateProgress);
 
-    root.addEventListener('mousemove', function () {
-      if (overlay) overlay.classList.remove('hide');
-      scheduleHide();
-    });
-    root.addEventListener('mouseleave', function () {
-      if (overlay && !video.paused) overlay.classList.add('hide');
-    });
-    root.addEventListener('touchstart', function () {
-      if (overlay) overlay.classList.remove('hide');
-      scheduleHide();
-    });
+    // Click to seek on the progress bar
+    if (progressBar) {
+      progressBar.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var rect = progressBar.getBoundingClientRect();
+        var pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        if (isFinite(video.duration) && video.duration > 0) {
+          video.currentTime = pct * video.duration;
+        }
+      });
+    }
   }
 
-  initCustomPlayer(document.querySelector('.custom-player'));
+  // Initialize main showreel
+  initVideoControls(document.querySelector('.custom-player'));
 
-  /* Shorts mute toggles */
-  document.querySelectorAll('[data-mute-toggle]').forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var card = btn.closest('.short-card');
-      if (!card) return;
-      var vid = card.querySelector('video');
-      if (!vid) return;
-      vid.muted = !vid.muted;
-      var iMuted = btn.querySelector('.icon-muted');
-      var iUnmuted = btn.querySelector('.icon-unmuted');
-      if (iMuted) iMuted.classList.toggle('hidden', !vid.muted);
-      if (iUnmuted) iUnmuted.classList.toggle('hidden', vid.muted);
-    });
+  // Initialize every short card independently
+  document.querySelectorAll('.short-card').forEach(function (card) {
+    initVideoControls(card);
   });
 
-  /* Autoplay shorts (silent) */
-  document.querySelectorAll('.short-card video').forEach(function (v) {
-    v.muted = true;
-    var p = v.play();
-    if (p && typeof p.catch === 'function') p.catch(function () { /* ignored */ });
+  /* =========================================================
+     FULLSCREEN FALLBACK — request fullscreen if user double
+     clicks anywhere on a short video itself.
+  ========================================================= */
+  document.querySelectorAll('.short-card video').forEach(function (vid) {
+    vid.addEventListener('dblclick', function () {
+      var card = vid.closest('.short-card');
+      if (card && !document.fullscreenElement && !document.webkitFullscreenElement) {
+        requestFs(card);
+      }
+    });
   });
 
 })();
